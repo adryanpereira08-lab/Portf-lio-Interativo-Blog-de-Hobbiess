@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Portfólio pessoal e blog de hobbies do Alex - Jogos, Leitura e Criatividade." />
+  <title>Alex | Portfólio & Hobbies</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="container">
+    <header class="header">
+      <a href="#" class="logo" aria-label="Página Inicial">
+        <span class="logo-icon" aria-hidden="true">⚡</span>
+        <span>MeuEspaço<span class="highlight">.dev</span></span>
+      </a>
+      <button class="theme-btn" id="themeToggle" aria-label="Alternar modo escuro">
+        <span class="theme-icon" aria-hidden="true">🌙</span>
+        <span class="theme-text">Modo Escuro</span>
+      </button>
+    </header>
+
+    <section class="hero">
+      <div class="avatar" aria-hidden="true">🎨</div>
+      <h1 class="hero-title">Olá, eu sou o <span class="highlight">Alex</span>!</h1>
+      <p class="hero-subtitle">
+        Desenvolvedor nas horas vagas, entusiasta de jogos indie, leitor compulsivo e aspirante a fotógrafo.
+      </p>
+    </section>
+
+    <section class="interactive-widget" aria-labelledby="widget-title">
+      <h2 id="widget-title" class="widget-title">🎲 Sem ideia do que explorar hoje?</h2>
+      <p class="widget-desc">Clique no botão abaixo para receber uma dica de hobby do dia!</p>
+      <button id="suggestBtn" class="btn-primary">Sortear Recomendação</button>
+      <div id="recommendationText" class="recommendation-result" aria-live="polite"></div>
+    </section>
+
+    <nav class="filters" aria-label="Filtrar projetos por categoria">
+      <button class="filter-btn active" data-filter="all">Todos</button>
+      <button class="filter-btn" data-filter="jogos">🎮 Jogos</button>
+      <button class="filter-btn" data-filter="leitura">📚 Leitura</button>
+      <button class="filter-btn" data-filter="criatividade">🎨 Criatividade</button>
+    </nav>
+
+    <main class="grid" id="cardGrid">
+      
+      <article 
+        class="card" 
+        data-category="jogos"
+        data-title="Análise: Hollow Knight"
+        data-desc="Minhas impressões sobre a ambientação, trilha sonora e gameplay marcantes do jogo indie Hollow Knight."
+        data-tag="🎮 Jogos"
+        tabindex="0"
+        role="button"
+        aria-haspopup="dialog"
+      >
+        <div class="card-banner banner-blue" aria-hidden="true">🗡️</div>
+        <div class="card-body">
+          <span class="tag">🎮 Jogos</span>
+          <h3 class="card-title">Análise: Hollow Knight</h3>
+          <p class="card-desc">Por que esse metroidvania se tornou meu jogo favorito de todos os tempos.</p>
+        </div>
+      </article>
+
+      <article 
+        class="card" 
+        data-category="leitura"
+        data-title="Resenha: Duna - Frank Herbert"
+        data-desc="Notas e citações marcantes da minha leitura da série de ficção científica Duna."
+        data-tag="📚 Leitura"
+        tabindex="0"
+        role="button"
+        aria-haspopup="dialog"
+      >
+        <div class="card-banner banner-amber" aria-hidden="true">🏜️</div>
+        <div class="card-body">
+          <span class="tag">📚 Leitura</span>
+          <h3 class="card-title">Resenha: Duna</h3>
+          <p class="card-desc">Construção de mundo épica e reflexões políticas que continuam atuais.</p>
+        </div>
+      </article>
+
+      <article 
+        class="card" 
+        data-category="criatividade"
+        data-title="Estudos em Pixel Art 16-bit"
+        data-desc="Coleção dos meus primeiros sprites criados no Aseprite para um projeto futuro de jogo."
+        data-tag="🎨 Criatividade"
+        tabindex="0"
+        role="button"
+        aria-haspopup="dialog"
+      >
+        <div class="card-banner banner-pink" aria-hidden="true">👾</div>
+        <div class="card-body">
+          <span class="tag">🎨 Criatividade</span>
+          <h3 class="card-title">Estudos em Pixel Art</h3>
+          <p class="card-desc">Aprender a desenhar com limitações de pixels e paletas reduzidas.</p>
+        </div>
+      </article>
+
+      <article 
+        class="card" 
+        data-category="jogos"
+        data-title="Skyrim Modding 2026"
+        data-desc="Guia rápido de como organizei mais de 150 mods mantendo a estabilidade do jogo."
+        data-tag="🎮 Jogos"
+        tabindex="0"
+        role="button"
+        aria-haspopup="dialog"
+      >
+        <div class="card-banner banner-emerald" aria-hidden="true">🐉</div>
+        <div class="card-body">
+          <span class="tag">🎮 Jogos</span>
+          <h3 class="card-title">Skyrim Modding 2026</h3>
+          <p class="card-desc">Transformando um clássico em um RPG com visual moderno.</p>
+        </div>
+      </article>
+
+    </main>
+
+    <footer class="footer">
+      <p>© 2026 • Desenvolvido por Alex. Todos os direitos reservados.</p>
+    </footer>
+  </div>
+
+  <div class="modal" id="infoModal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="modalTitle">
+    <div class="modal-overlay" id="modalOverlay"></div>
+    <div class="modal-content">
+      <button class="close-btn" id="closeModalBtn" aria-label="Fechar janela modal">&times;</button>
+      <span class="tag" id="modalTag">Categoria</span>
+      <h2 id="modalTitle" class="modal-title">Título</h2>
+      <p id="modalDesc" class="modal-desc">Descrição detalhada do item selecionado...</p>
+    </div>
+  </div>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
