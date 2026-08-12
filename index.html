@@ -1,113 +1,88 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
-  <title>Meu Cantinho Digital | Hobbies & Projetos de Alex</title>
-  <meta name="description" content="Portfólio pessoal e blog de Alex sobre jogos indie, leitura de ficção científica e pixel art." />
-  <meta name="theme-color" content="#0f172a" />
-  
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Cantinho & Hobbies</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
-  <div class="container">
-    
-    <header class="header">
-      <a href="#" class="logo" aria-label="MeuEspaço.dev - Página inicial">⚡ MeuEspaço.dev</a>
-      <button class="theme-btn" id="themeToggle" aria-label="Alternar para modo escuro" aria-pressed="false">
-        <span class="theme-icon" aria-hidden="true">🌙</span>
-        <span class="theme-text">Modo Escuro</span>
-      </button>
-    </header>
-
-    <section class="hero" aria-labelledby="hero-title">
-      <div class="avatar" role="img" aria-label="Ícone de paleta de pintura representativo do autor">🎨</div>
-      <h1 id="hero-title">Olá, eu sou o <span>Alex</span>!</h1>
-      <p>Desenvolvedor nas horas vagas, entusiasta de jogos indie, leitor compulsivo e aspirante a fotógrafo.</p>
-    </section>
-
-    <section class="interactive-widget" aria-labelledby="widget-title">
-      <h2 id="widget-title">🎲 Sem ideia do que explorar hoje?</h2>
-      <p class="widget-desc">Clique no botão para receber uma dica rápida de hobby do dia!</p>
-      
-      <button id="suggestBtn" class="btn btn-primary">
-        Sortear Recomendação
-      </button>
-
-      <div id="recommendation-text" class="recommendation-output" aria-live="polite"></div>
-    </section>
-
-    <nav class="filters" aria-label="Filtrar conteúdos por categoria">
-      <button class="filter-btn active" data-filter="all" aria-current="page">Todos</button>
-      <button class="filter-btn" data-filter="jogos">🎮 Jogos</button>
-      <button class="filter-btn" data-filter="leitura">📚 Leitura</button>
-      <button class="filter-btn" data-filter="criatividade">🎨 Criatividade</button>
+    <nav class="navbar">
+        <div class="logo">Meu<span>Universo</span></div>
+        <ul class="nav-links">
+            <li><a href="#sobre">Sobre</a></li>
+            <li><a href="#hobbies">Hobbies</a></li>
+            <li><a href="#contato">Contato</a></li>
+        </ul>
     </nav>
 
-    <main class="grid" id="cardGrid" aria-label="Galeria de artigos e hobbies">
-      
-      <article class="card" data-category="jogos">
-        <button class="card-action" data-title="Hollow Knight" data-desc="Minhas impressões sobre a ambientação e gameplay do jogo indie Hollow Knight." data-category="🎮 Jogos" aria-label="Abrir detalhes de Análise: Hollow Knight">
-          <div class="card-banner bg-blue" aria-hidden="true">🗡️</div>
-          <div class="card-body">
-            <span class="tag">🎮 Jogos</span>
-            <h3 class="card-title">Análise: Hollow Knight</h3>
-            <p class="card-desc">Por que esse metroidvania se tornou meu jogo favorito de todos os tempos.</p>
-          </div>
-        </button>
-      </article>
+    <header class="hero">
+        <div class="hero-content">
+            <h1>Olá, eu sou o <span class="highlight">[Seu Nome]</span>! 👋</h1>
+            <p>Boas-vindas ao meu espaço pessoal onde compartilho minhas paixões, projetos e hobbies.</p>
+            <a href="#hobbies" class="btn">Explorar Hobbies</a>
+        </div>
+    </header>
 
-      <article class="card" data-category="leitura">
-        <button class="card-action" data-title="Duna - Frank Herbert" data-desc="Notas e citações marcantes da minha leitura da série de ficção científica Duna." data-category="📚 Leitura" aria-label="Abrir detalhes de Resenha: Duna">
-          <div class="card-banner bg-amber" aria-hidden="true">🏜️</div>
-          <div class="card-body">
-            <span class="tag">📚 Leitura</span>
-            <h3 class="card-title">Resenha: Duna</h3>
-            <p class="card-desc">Construção de mundo épica e reflexões políticas que continuam atuais.</p>
-          </div>
-        </button>
-      </article>
+    <section id="sobre" class="container">
+        <h2>Sobre Mim</h2>
+        <div class="about-card">
+            <p>Aqui você pode escrever um breve parágrafo sobre quem você é, o que faz no dia a dia e por que decidiu criar este blog para documentar suas paixões!</p>
+        </div>
+    </section>
 
-      <article class="card" data-category="criatividade">
-        <button class="card-action" data-title="Pixel Art 16-bit" data-desc="Coleção dos meus primeiros sprites criados no Aseprite para um projeto futuro." data-category="🎨 Criatividade" aria-label="Abrir detalhes de Estudos em Pixel Art">
-          <div class="card-banner bg-pink" aria-hidden="true">👾</div>
-          <div class="card-body">
-            <span class="tag">🎨 Criatividade</span>
-            <h3 class="card-title">Estudos em Pixel Art</h3>
-            <p class="card-desc">Aprender a desenhar com limitações de pixels e paletas reduzidas.</p>
-          </div>
-        </button>
-      </article>
+    <section id="hobbies" class="container">
+        <h2>Meus Hobbies & Projetos</h2>
+        
+        <div class="filter-buttons">
+            <button class="filter-btn active" data-filter="all">Todos</button>
+            <button class="filter-btn" data-filter="games">Games</button>
+            <button class="filter-btn" data-filter="musica">Música</button>
+            <button class="filter-btn" data-filter="arte">Arte / Design</button>
+        </div>
 
-      <article class="card" data-category="jogos">
-        <button class="card-action" data-title="Setup de Modding para Skyrim" data-desc="Guia rápido de como organizei 150+ mods mantendo o jogo estável." data-category="🎮 Jogos" aria-label="Abrir detalhes de Skyrim Modding 2026">
-          <div class="card-banner bg-emerald" aria-hidden="true">🐉</div>
-          <div class="card-body">
-            <span class="tag">🎮 Jogos</span>
-            <h3 class="card-title">Skyrim Modding 2026</h3>
-            <p class="card-desc">Transformando um clássico em um RPG com visual moderno.</p>
-          </div>
-        </button>
-      </article>
+        <div class="grid-hobbies">
+            <div class="card" data-category="games">
+                <div class="card-icon"><i class="fa-solid fa-gamepad"></i></div>
+                <h3>Jogos Favoritos</h3>
+                <p>Análises, gameplays e as minhas experiências zerando RPGs e indie games.</p>
+                <span class="tag">Games</span>
+            </div>
 
-    </main>
+            <div class="card" data-category="musica">
+                <div class="card-icon"><i class="fa-solid fa-guitar"></i></div>
+                <h3>Tocando Violão</h3>
+                <p>Gravações de covers, playlists da semana e aprendizado de novos instrumentos.</p>
+                <span class="tag">Música</span>
+            </div>
 
-    <footer class="footer">
-      <p>© 2026 • Feito com HTML, CSS e JS puro por Alex.</p>
+            <div class="card" data-category="arte">
+                <div class="card-icon"><i class="fa-solid fa-palette"></i></div>
+                <h3>Arte Digital</h3>
+                <p>Ilustrações, sketches e testes com modelagem 3D nas horas vagas.</p>
+                <span class="tag">Arte</span>
+            </div>
+
+            <div class="card" data-category="games">
+                <div class="card-icon"><i class="fa-solid fa-trophy"></i></div>
+                <h3>Setup Gamer</h3>
+                <p>Um tour completo pelo meu espaço de jogos e configurações do PC.</p>
+                <span class="tag">Games</span>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contato">
+        <p>Feito com ❤️ por [Seu Nome]</p>
+        <div class="socials">
+            <a href="#"><i class="fa-brands fa-github"></i></a>
+            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#"><i class="fa-brands fa-discord"></i></a>
+        </div>
     </footer>
-  </div>
 
-  <dialog class="modal" id="infoModal" aria-labelledby="modalTitle">
-    <div class="modal-content">
-      <button class="close-btn" id="closeModalBtn" aria-label="Fechar janela modal">&times;</button>
-      <span class="tag" id="modalTag">Categoria</span>
-      <h2 id="modalTitle">Título</h2>
-      <p id="modalDesc">Descrição completa...</p>
-    </div>
-  </dialog>
-
-  <script src="script.js" defer></script>
+    <script src="script.js"></script>
 </body>
 </html>
