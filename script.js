@@ -1,96 +1,126 @@
+'use strict';
+
 document.addEventListener('DOMContentLoaded', () => {
 
-  // ==========================================
-  // 1. ALTERNÂNCIA DE TEMA (DARK / LIGHT MODE)
-  // ==========================================
+  /* ==========================================================================
+     1. GERENCIAMENTO DE TEMA (DARK / LIGHT MODE)
+     ========================================================================== */
   const themeBtn = document.getElementById('themeToggle');
-  
-  // Detecta preferência do SO caso o localStorage esteja vazio
-  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  let currentTheme = localStorage.getItem('theme') || (prefersDark ? 'dark' : 'light');
+  const themeText = themeBtn.querySelector('.theme-text');
+  const themeIcon = themeBtn.querySelector('.theme-icon');
 
-  function applyTheme(theme) {
+  // Verifica tema salvo ou preferência do sistema operacional
+  const getPreferredTheme = () => {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) return savedTheme;
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  };
+
+  const applyTheme = (theme) => {
     document.documentElement.setAttribute('data-theme', theme);
-    if (themeBtn) {
-      themeBtn.textContent = theme === 'dark' ? '☀️ Modo Claro' : '🌙 Modo Escuro';
-      themeBtn.setAttribute('aria-label', `Alternar para ${theme === 'dark' ? 'Modo Claro' : 'Modo Escuro'}`);
-    }
+    const isDark = theme === 'dark';
+    
+    // Atualiza a interface e estados de acessibilidade
+    themeIcon.textContent = isDark ? '☀️' : '🌙';
+    themeText.textContent = isDark ? 'Modo Claro' : 'Modo Escuro';
+    themeBtn.setAttribute('aria-pressed', isDark);
+    themeBtn.setAttribute('aria-label', `Alternar para ${isDark ? 'modo claro' : 'modo escuro'}`);
+    
     localStorage.setItem('theme', theme);
-  }
+  };
 
-  // Aplica tema inicial
+  // Inicializa o tema
+  let currentTheme = getPreferredTheme();
   applyTheme(currentTheme);
 
-  themeBtn?.addEventListener('click', () => {
+  // Evento de clique para trocar tema
+  themeBtn.addEventListener('click', () => {
     currentTheme = currentTheme === 'light' ? 'dark' : 'light';
     applyTheme(currentTheme);
   });
 
 
-  // ==========================================
-  // 2. FILTRO DE CARDS
-  // ==========================================
-  const filterBtns = document.querySelectorAll('.filter-btn');
+  /* ==========================================================================
+     2. FILTRO DE CARDS (DELEGAÇÃO DE EVENTOS)
+     ========================================================================== */
+  const filtersContainer = document.querySelector('.filters');
   const cards = document.querySelectorAll('.card');
 
-  filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      // Atualiza estado do botão
-      filterBtns.forEach(b => b.classList.remove('active'));
+  if (filtersContainer) {
+    filtersContainer.addEventListener('click', (e) => {
+      const btn = e.target.closest('.filter-btn');
+      if (!btn) return;
+
+      // Atualiza botão ativo e atributos ARIA
+      filtersContainer.querySelectorAll('.filter-btn').forEach(b => {
+        b.classList.remove('active');
+        b.removeAttribute('aria-current');
+      });
+
       btn.classList.add('active');
+      btn.setAttribute('aria-current', 'page');
 
-      const filterValue = btn.getAttribute('data-filter');
+      const filterValue = btn.dataset.filter;
 
-      // Exibe/Oculta com classe CSS (preserva layouts flex/grid)
+      // Exibe/oculta cards
       cards.forEach(card => {
-        const category = card.getAttribute('data-category');
-        const isMatch = filterValue === 'all' || category === filterValue;
-        
-        card.classList.toggle('hidden', !isMatch);
+        const isMatch = filterValue === 'all' || card.dataset.category === filterValue;
+        card.hidden = !isMatch;
       });
     });
-  });
+  }
 
 
-  // ==========================================
-  // 3. MODAL DE DETALHES
-  // ==========================================
+  /* ==========================================================================
+     3. MODAL DE DETALHES (USANDO A TAG NATIVA <dialog>)
+     ========================================================================== */
   const modal = document.getElementById('infoModal');
+  const closeModalBtn = document.getElementById('closeModalBtn');
   const modalTitle = document.getElementById('modalTitle');
   const modalDesc = document.getElementById('modalDesc');
   const modalTag = document.getElementById('modalTag');
+  const cardGrid = document.getElementById('cardGrid');
 
-  function openModal(title, desc, tag) {
-    if (!modal) return;
-    if (modalTitle) modalTitle.textContent = title;
-    if (modalDesc) modalDesc.textContent = desc;
-    if (modalTag) modalTag.textContent = tag;
-    
-    modal.classList.add('active');
-    modal.setAttribute('aria-hidden', 'false');
+  const openModal = ({ title, desc, category }) => {
+    modalTitle.textContent = title;
+    modalDesc.textContent = desc;
+    modalTag.textContent = category;
+    modal.showModal(); // Método nativo HTML5
+  };
+
+  const closeModal = () => {
+    modal.close(); // Método nativo HTML5
+  };
+
+  // Escuta cliques nos cards usando delegação de eventos no grid
+  if (cardGrid) {
+    cardGrid.addEventListener('click', (e) => {
+      const actionBtn = e.target.closest('.card-action');
+      if (!actionBtn) return;
+
+      const { title, desc, category } = actionBtn.dataset;
+      openModal({ title, desc, category });
+    });
   }
 
-  function closeModal() {
-    if (!modal) return;
-    modal.classList.remove('active');
-    modal.setAttribute('aria-hidden', 'true');
-  }
+  // Fechar no botão 'X'
+  closeModalBtn?.addEventListener('click', closeModal);
 
-  // Evento global para fechar no clique fora ou pressionando 'ESC'
-  window.addEventListener('click', (e) => {
-    if (e.target === modal) closeModal();
-  });
+  // Fechar ao clicar no backdrop (fora do conteúdo do modal)
+  modal?.addEventListener('click', (e) => {
+    const rect = modal.getBoundingClientRect();
+    const isInDialog = (
+      rect.top <= e.clientY && e.clientY <= rect.top + rect.height &&
+      rect.left <= e.clientX && e.clientX <= rect.left + rect.width
+    );
 
-  window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modal?.classList.contains('active')) {
-      closeModal();
-    }
+    if (!isInDialog) closeModal();
   });
 
 
-  // ==========================================
-  // 4. GERADOR ALEATÓRIO DE RECOMENDAÇÃO
-  // ==========================================
+  /* ==========================================================================
+     4. GERADOR ALEATÓRIO DE RECOMENDAÇÃO (EVITA REPETIÇÃO)
+     ========================================================================== */
   const recommendations = [
     "🎮 Experimente jogar um RPG Indie hoje!",
     "📚 Leia 15 páginas de um livro de ficção científica.",
@@ -106,13 +136,13 @@ document.addEventListener('DOMContentLoaded', () => {
   suggestBtn?.addEventListener('click', () => {
     let randomIndex;
     
-    // Evita repetir a mesma frase duas vezes seguidas
+    // Garante que a mesma recomendação não seja sorteada duas vezes seguidas
     do {
       randomIndex = Math.floor(Math.random() * recommendations.length);
     } while (randomIndex === lastIndex && recommendations.length > 1);
 
     lastIndex = randomIndex;
-    if (recText) recText.textContent = recommendations[randomIndex];
+    recText.textContent = recommendations[randomIndex];
   });
 
 });
